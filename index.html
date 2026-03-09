@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Krazy Karaoke</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <div>
+          <h1>Krazy Karaoke</h1>
+        </div>
+        <div class="pill">2-6 players · Single device</div>
+      </header>
+
+      <section
+        class="screen screen-active"
+        id="screen-setup"
+        aria-labelledby="setup-title"
+      >
+        <div class="panel">
+          <h2 id="setup-title">Game Setup</h2>
+          <p class="muted">Add 2-6 players, then start.</p>
+          <div class="players" id="players-list"></div>
+          <div class="player-actions">
+            <button class="ghost" data-action="add-player">Add Player</button>
+            <p class="muted" id="player-limit">2-6 players required.</p>
+          </div>
+          <div class="rules">
+            <p>
+              <strong>Word match:</strong> whole word in the lyric ("love"
+              matches "love's").
+            </p>
+            <p>
+              <strong>Ring-in:</strong> first to ring attempts; wrong answer =
+              muted next turn.
+            </p>
+          </div>
+          <button class="primary" data-action="start" id="start-game">
+            Start Game
+          </button>
+        </div>
+        <div class="deck-preview">
+          <div class="card-stack">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+          <p class="muted">100-card deck · 65 easy · 35 hard</p>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-game" aria-labelledby="game-title">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="header-actions">
+              <button class="ghost" data-action="remove-word" id="remove-word">
+                Remove Word
+              </button>
+              <button class="ghost" data-action="draw" id="draw-card">
+                Draw Card
+              </button>
+              <button class="secondary" data-action="next" id="next-turn">
+                Next Turn
+              </button>
+            </div>
+          </div>
+          <div class="word-card">
+            <span class="word-label">Word</span>
+            <span class="word" id="word-text">READY?</span>
+            <span class="points" id="word-points">Draw to start</span>
+          </div>
+          <div class="ring-in">
+            <h3>Ring In</h3>
+            <div class="ring-buttons" id="ring-buttons"></div>
+          </div>
+          <div class="lyric-capture">
+            <h3>Live Lyric Capture</h3>
+            <p class="muted">
+              Auto-stop in <span id="lyric-countdown">--</span>s
+            </p>
+            <div class="lyric-box" id="lyric-text" contenteditable="true">
+              ...
+            </div>
+            <div class="lyric-actions">
+              <button
+                class="ghost"
+                data-action="retry-capture"
+                id="retry-capture"
+              >
+                Retry Capture
+              </button>
+              <button
+                class="secondary"
+                data-action="validate-lyric"
+                id="validate-lyric"
+              >
+                Validate Lyric
+              </button>
+              <span class="muted" id="validator-status"
+                >Validator: checking...</span
+              >
+            </div>
+            <div class="validation" id="validation-result">
+              <p class="muted">No validation yet.</p>
+            </div>
+            <div class="validation-list" id="validation-list"></div>
+          </div>
+          <div class="actions">
+            <button class="danger" data-action="vote-invalid">Invalid</button>
+            <button class="secondary" data-action="next">Next Turn</button>
+            <button class="ghost" data-action="end">End Game</button>
+          </div>
+        </div>
+        <aside class="scoreboard">
+          <p class="subtitle">Race to a lyric. Win at 10 points.</p>
+          <h3>Scores</h3>
+          <ul id="score-list"></ul>
+        </aside>
+      </section>
+
+      <section class="screen" id="screen-win" aria-labelledby="win-title">
+        <div class="panel win">
+          <h2 id="win-title">Winner!</h2>
+          <p class="subtitle" id="win-score">Final score: 10</p>
+          <div class="win-actions">
+            <button class="primary" data-action="restart">Play Again</button>
+            <button class="ghost" data-action="new">New Game</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
